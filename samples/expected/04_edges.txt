@@ -1,0 +1,39 @@
+# 04_edges：期望脚本（`? ` 是命令参数，其余是上一条命令的期望 stdout）
+? card samples/sets/04_edges_a.txt
+CARD|n=20000
+? card samples/sets/04_edges_b.txt
+CARD|n=20000
+? has samples/sets/04_edges_a.txt 0
+HAS|in=true
+? has samples/sets/04_edges_a.txt 9999
+HAS|in=true
+? has samples/sets/04_edges_a.txt 10000
+HAS|in=false
+? has samples/sets/04_edges_a.txt 4294967295
+HAS|in=true
+? has samples/sets/04_edges_b.txt 4294962296
+HAS|in=false
+? has samples/sets/04_edges_b.txt 4294962295
+HAS|in=true
+? has samples/sets/04_edges_b.txt 0
+HAS|in=false
+? subset samples/sets/04_edges_a.txt samples/sets/04_edges_b.txt
+SUBSET|sub=false
+? subset samples/sets/04_edges_b.txt samples/sets/04_edges_a.txt
+SUBSET|sub=false
+? op and samples/sets/04_edges_a.txt samples/sets/04_edges_b.txt
+RESULT|op=and|n=10000|runs=2|bound=60
+5000 9999
+4294957296 4294962295
+? op or samples/sets/04_edges_a.txt samples/sets/04_edges_b.txt
+RESULT|op=or|n=30000|runs=2|bound=60
+0 14999
+4294952296 4294967295
+? op sub samples/sets/04_edges_a.txt samples/sets/04_edges_b.txt
+RESULT|op=sub|n=10000|runs=2|bound=60
+0 4999
+4294962296 4294967295
+? size samples/sets/04_edges_a.txt
+SIZE|n=20000|runs=2|payload=10|bytes=50|crc32=44007cd1|bound=60
+? size samples/sets/04_edges_b.txt
+SIZE|n=20000|runs=2|payload=11|bytes=51|crc32=d9b622b6|bound=60

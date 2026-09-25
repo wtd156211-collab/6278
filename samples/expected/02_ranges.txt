@@ -1,0 +1,42 @@
+# 02_ranges：期望脚本（`? ` 是命令参数，其余是上一条命令的期望 stdout）
+? card samples/sets/02_ranges_a.txt
+CARD|n=1000000
+? card samples/sets/02_ranges_b.txt
+CARD|n=1967296
+? has samples/sets/02_ranges_a.txt 0
+HAS|in=true
+? has samples/sets/02_ranges_a.txt 499999
+HAS|in=true
+? has samples/sets/02_ranges_a.txt 500000
+HAS|in=false
+? has samples/sets/02_ranges_a.txt 1000250000
+HAS|in=true
+? has samples/sets/02_ranges_a.txt 4294967295
+HAS|in=false
+? has samples/sets/02_ranges_b.txt 500000
+HAS|in=true
+? has samples/sets/02_ranges_b.txt 1000000000
+HAS|in=false
+? has samples/sets/02_ranges_b.txt 4294967295
+HAS|in=true
+? subset samples/sets/02_ranges_a.txt samples/sets/02_ranges_b.txt
+SUBSET|sub=false
+? subset samples/sets/02_ranges_b.txt samples/sets/02_ranges_a.txt
+SUBSET|sub=false
+? op and samples/sets/02_ranges_a.txt samples/sets/02_ranges_b.txt
+RESULT|op=and|n=650000|runs=2|bound=60
+100000 499999
+1000250000 1000499999
+? op or samples/sets/02_ranges_a.txt samples/sets/02_ranges_b.txt
+RESULT|op=or|n=2317296|runs=3|bound=70
+0 599999
+1000000000 1000749999
+4294000000 4294967295
+? op sub samples/sets/02_ranges_a.txt samples/sets/02_ranges_b.txt
+RESULT|op=sub|n=350000|runs=2|bound=60
+0 99999
+1000000000 1000249999
+? size samples/sets/02_ranges_a.txt
+SIZE|n=1000000|runs=2|payload=12|bytes=52|crc32=fea5207e|bound=60
+? size samples/sets/02_ranges_b.txt
+SIZE|n=1967296|runs=3|payload=22|bytes=62|crc32=2bbe840d|bound=70

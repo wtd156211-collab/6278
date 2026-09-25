@@ -1,0 +1,52 @@
+# 05_nearfull：期望脚本（`? ` 是命令参数，其余是上一条命令的期望 stdout）
+? card samples/sets/05_nearfull_a.txt
+CARD|n=4294967293
+? card samples/sets/05_nearfull_b.txt
+CARD|n=4242450944
+? has samples/sets/05_nearfull_a.txt 123456789
+HAS|in=false
+? has samples/sets/05_nearfull_a.txt 2000000000
+HAS|in=false
+? has samples/sets/05_nearfull_a.txt 2147483648
+HAS|in=true
+? has samples/sets/05_nearfull_a.txt 4294967000
+HAS|in=false
+? has samples/sets/05_nearfull_a.txt 4294967295
+HAS|in=true
+? has samples/sets/05_nearfull_b.txt 123456789
+HAS|in=true
+? has samples/sets/05_nearfull_b.txt 2147483648
+HAS|in=false
+? has samples/sets/05_nearfull_b.txt 4294967295
+HAS|in=true
+? subset samples/sets/05_nearfull_a.txt samples/sets/05_nearfull_b.txt
+SUBSET|sub=false
+? subset samples/sets/05_nearfull_b.txt samples/sets/05_nearfull_a.txt
+SUBSET|sub=false
+? subset samples/sets/05_nearfull_a.txt samples/sets/05_nearfull_a.txt
+SUBSET|sub=true
+? op and samples/sets/05_nearfull_a.txt samples/sets/05_nearfull_b.txt
+RESULT|op=and|n=4242450941|runs=5|bound=90
+0 123456788
+123456790 1999999999
+2000000001 2147483647
+2200000000 4294966999
+4294967001 4294967295
+? op or samples/sets/05_nearfull_a.txt samples/sets/05_nearfull_b.txt
+RESULT|op=or|n=4294967296|runs=1|bound=50
+0 4294967295
+? op sub samples/sets/05_nearfull_a.txt samples/sets/05_nearfull_b.txt
+RESULT|op=sub|n=52516352|runs=1|bound=50
+2147483648 2199999999
+? size samples/sets/05_nearfull_a.txt
+SIZE|n=4294967293|runs=4|payload=20|bytes=60|crc32=38a33b3f|bound=80
+? size samples/sets/05_nearfull_b.txt
+SIZE|n=4242450944|runs=2|payload=15|bytes=55|crc32=a3b81e80|bound=60
+? pack samples/sets/05_nearfull_a.txt var/05_nearfull_a.bsf
+SIZE|n=4294967293|runs=4|payload=20|bytes=60|crc32=38a33b3f|bound=80
+? unpack var/05_nearfull_a.bsf
+RESULT|op=unpack|n=4294967293|runs=4|bound=80
+0 123456788
+123456790 1999999999
+2000000001 4294966999
+4294967001 4294967295
